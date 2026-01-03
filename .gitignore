@@ -1,0 +1,6 @@
+pb_data/
+backups/
+logs/
+*.db
+.env
+ngrok.log

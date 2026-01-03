@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Enterprise Pro-Site</title>
+</head>
+<body class="bg-slate-900 text-white font-sans">
+    <nav class="p-6 flex justify-between items-center border-b border-slate-800">
+        <h1 class="text-2xl font-bold tracking-tighter">PRO-SITE <span class="text-blue-500">EXPERTS</span></h1>
+        <button onclick="document.getElementById('login-modal').showModal()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition">Client Login</button>
+    </nav>
+    
+<main class="max-w-6xl mx-auto mt-20 px-6">
+    <div class="text-center mb-16">
+        <span class="bg-blue-500/10 text-blue-400 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-blue-500/20">v1.0 Enterprise</span>
+        <h2 class="text-7xl font-extrabold mt-6 mb-8 tracking-tight">Intelligence <br/> <span class="text-blue-500">Accelerated.</span></h2>
+        <p class="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed">Secure authentication, cloud-native storage, and real-time analytics designed for the modern expert.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 text-left">
+        <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 hover:border-blue-500/50 transition group">
+            <div class="w-12 h-12 bg-blue-600 rounded-lg mb-6 flex items-center justify-center font-bold">01</div>
+            <h4 class="text-xl font-bold mb-3">Secure Portal</h4>
+            <p class="text-slate-400 text-sm">Military-grade encryption for all user data and session management.</p>
+        </div>
+        <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 hover:border-blue-500/50 transition">
+            <div class="w-12 h-12 bg-blue-600 rounded-lg mb-6 flex items-center justify-center font-bold">02</div>
+            <h4 class="text-xl font-bold mb-3">Real-time Sync</h4>
+            <p class="text-slate-400 text-sm">Instant data propagation across all client endpoints globally.</p>
+        </div>
+        <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 hover:border-blue-500/50 transition">
+            <div class="w-12 h-12 bg-blue-600 rounded-lg mb-6 flex items-center justify-center font-bold">03</div>
+            <h4 class="text-xl font-bold mb-3">Expert Support</h4>
+            <p class="text-slate-400 text-sm">Integrated ticket system and 24/7 automated monitoring.</p>
+        </div>
+    </div>
+</main>
+    <dialog id="login-modal" class="bg-slate-800 p-8 rounded-2xl shadow-2xl border border-slate-700 text-white">
+        <h3 class="text-2xl font-bold mb-4">Account Login</h3>
+        <input type="email" placeholder="Email" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg mb-4">
+        <input type="password" placeholder="Password" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg mb-6">
+        <button class="w-full bg-blue-600 py-3 rounded-lg font-bold">Authenticate</button>
+        <button onclick="document.getElementById('login-modal').close()" class="mt-4 text-slate-500 text-sm block mx-auto">Cancel</button>
+    </dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.js"></script>
+<script>
+    const pb = new PocketBase('http://127.0.0.1:8080');
+
+    async function handleLogin() {
+        const email = document.querySelector('input[type="email"]').value;
+        const pass = document.querySelector('input[type="password"]').value;
+        
+        try {
+            const authData = await pb.collection('users').authWithPassword(email, pass);
+            alert("Authenticated as " + pb.authStore.model.email);
+            window.location.reload(); // Redirect to pro dashboard
+        } catch (err) {
+            alert("Authentication Failed: " + err.message);
+        }
+    }
+</script>
+</body>
+</html>

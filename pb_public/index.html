@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Enterprise Pro-Site</title>
+</head>
+<body class="bg-slate-900 text-white font-sans">
+    <nav class="p-6 flex justify-between items-center border-b border-slate-800">
+        <h1 class="text-2xl font-bold tracking-tighter">PRO-SITE <span class="text-blue-500">EXPERTS</span></h1>
+        <button onclick="document.getElementById('login-modal').showModal()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition">Client Login</button>
+    </nav>
+    
+    <main class="max-w-6xl mx-auto mt-20 text-center">
+        <span class="text-blue-400 font-mono text-sm tracking-widest uppercase">Enterprise Ready</span>
+        <h2 class="text-6xl font-extrabold mt-4 mb-8">Modern Infrastructure <br/> for Professional Results.</h2>
+        <p class="text-slate-400 text-xl max-w-2xl mx-auto">Full-stack deployment with encrypted authentication, real-time data synchronization, and high-performance architecture.</p>
+    </main>
+
+    <dialog id="login-modal" class="bg-slate-800 p-8 rounded-2xl shadow-2xl border border-slate-700 text-white">
+        <h3 class="text-2xl font-bold mb-4">Account Login</h3>
+        <input type="email" placeholder="Email" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg mb-4">
+        <input type="password" placeholder="Password" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg mb-6">
+<button id="login-btn" onclick="handleLogin()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-bold transition">
+    Authenticate
+</button>
+    </dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.js"></script>
+<script>
+    // Initialize connection to your backend
+    const pb = new PocketBase('https://untriturated-alayah-bifurcately.ngrok-free.dev');
+
+    async function handleLogin() {
+        const btn = document.getElementById('login-btn');
+        const email = document.querySelector('input[type="email"]').value;
+        const pass = document.querySelector('input[type="password"]').value;
+
+        // Visual feedback for "Enterprise" feel
+        btn.innerText = "Verifying...";
+        btn.disabled = true;
+
+        try {
+            // Attempt to authenticate
+            const authData = await pb.collection('users').authWithPassword(email, pass);
+            
+            // If successful, take them to the Expert Dashboard
+            window.location.href = '/dashboard.html';
+        } catch (err) {
+            alert("Expert Authentication Failed: " + err.message);
+            btn.innerText = "Authenticate";
+            btn.disabled = false;
+        }
+    }
+</script>
+</body>
+</html>
