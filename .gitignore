@@ -4,3 +4,5 @@ logs/
 *.db
 .env
 ngrok.log
+pocketbase
+pocketbase_0.22.0_linux_amd64.zip
