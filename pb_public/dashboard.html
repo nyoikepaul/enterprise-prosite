@@ -1,67 +1,55 @@
+cat <<EOF > ~/enterprise_prosite/pb_public/dashboard.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Client Workspace | Pro-Site</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.js"></script>
-    <title>Enterprise Portal | Pro-Site</title>
+    <script src="https://cdn.jsdelivr.net/gh/pocketbase/js-sdk@latest/dist/pocketbase.umd.js"></script>
 </head>
-<body class="bg-slate-900 text-white font-sans">
-    <div id="app" class="hidden flex h-screen">
-        <aside class="w-64 bg-slate-800 border-r border-slate-700 p-8">
-            <h1 class="text-xl font-bold text-blue-500 mb-10">PRO-SITE CORE</h1>
-            <nav class="space-y-6">
-                <a href="#" class="block text-blue-400">Main Dashboard</a>
-                <button onclick="logout()" class="block text-red-400 mt-20">Secure Logout</button>
-            </nav>
-        </aside>
-
-        <main class="flex-1 p-12">
-            <h2 class="text-4xl font-extrabold mb-8">Client <span class="text-blue-500">Workspace</span></h2>
-            <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700">
-                <p class="text-slate-400 uppercase text-xs font-bold mb-2">Authenticated User</p>
-                <p id="user-email" class="text-2xl font-mono">Verified Account</p>
+<body class="bg-slate-950 text-white flex">
+    <aside class="w-64 min-h-screen bg-slate-900 border-r border-slate-800 p-6">
+        <h1 class="text-xl font-bold text-blue-400 mb-10">Pro-Site Admin</h1>
+        <nav class="space-y-4">
+            <a href="#" class="block p-3 bg-slate-800 rounded-lg text-white">Dashboard</a>
+            <a href="#" class="block p-3 text-slate-400 hover:bg-slate-800 rounded-lg">Infrastructure</a>
+            <button id="logoutBtn" class="block w-full text-left p-3 text-red-400 hover:bg-red-900/20 rounded-lg mt-20">Logout</button>
+        </nav>
+    </aside>
+    <main class="flex-1 p-10">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h2 class="text-3xl font-bold">Project Overview</h2>
+                <p class="text-slate-400" id="userEmail">Loading session...</p>
             </div>
-        </main>
-    </div>
-
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                <span class="text-emerald-400 font-bold text-sm">● System Operational</span>
+            </div>
+        </header>
+        <div class="grid grid-cols-3 gap-6">
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <h4 class="text-slate-500 mb-2">Active Connections</h4>
+                <p class="text-4xl font-mono">1,284</p>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <h4 class="text-slate-500 mb-2">Uptime</h4>
+                <p class="text-4xl font-mono">99.9%</p>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <h4 class="text-slate-500 mb-2">Security Events</h4>
+                <p class="text-4xl font-mono text-blue-400">0</p>
+            </div>
+        </div>
+    </main>
     <script>
-        // Use the current origin (localhost or your domain)
         const pb = new PocketBase('https://untriturated-alayah-bifurcately.ngrok-free.dev');
-
-        function checkAuth() {
-            if (!pb.authStore.isValid) {
-                // Not logged in? Go back to login page
-                window.location.href = '/';
-            } else {
-                // Logged in? Show the content
-                document.getElementById('app').classList.remove('hidden');
-                document.getElementById('user-email').innerText = pb.authStore.model.email;
-            }
-        }
-
-        function logout() {
+        if (!pb.authStore.isValid) window.location.href = 'index.html';
+        document.getElementById('userEmail').innerText = "Logged in as: " + pb.authStore.model.email;
+        document.getElementById('logoutBtn').onclick = () => {
             pb.authStore.clear();
-            window.location.href = '/';
-        }
-
-        // Run check on load
-        checkAuth();
-async function handleLogin() {
-    const email = document.querySelector('input[type="email"]').value;
-    const pass = document.querySelector('input[type="password"]').value;
-    const btn = document.querySelector('button[onclick="handleLogin()"]');
-
-    btn.innerText = "Authenticating...";
-    
-    try {
-        // This is the core "Expert" function
-        const authData = await pb.collection('users').authWithPassword(email, pass);
-        window.location.href = '/dashboard.html';
-    } catch (err) {
-        alert("Access Denied: " + err.message);
-        btn.innerText = "Authenticate";
-    }
-}
+            window.location.href = 'index.html';
+        };
     </script>
 </body>
 </html>
+EOF
