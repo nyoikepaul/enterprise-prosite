@@ -1,16 +1,38 @@
-# Enterprise Pro-Site & Client Portal
+# Enterprise Pro-Site: Secure Client Portal
 
-A full-stack, enterprise-ready web application featuring a secure client workspace, real-time authentication, and automated infrastructure management.
+Enterprise-grade site builder and client portal with secure auth, automation, and integrations. Ideal for business apps.
 
-## 🚀 Tech Stack
-- **Backend:** PocketBase (Go-based) for Auth & Database.
-- **Frontend:** HTML5, Tailwind CSS, JavaScript (ES6).
-- **Gateway:** Nginx Reverse Proxy.
-- **Tunneling:** ngrok for secure public HTTPS access.
-- **Process Management:** Systemd (Linux Service).
+[![GitHub license](https://img.shields.io/github/license/nyoikepaul/enterprise-prosite)](https://github.com/nyoikepaul/enterprise-prosite/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/nyoikepaul/enterprise-prosite)](https://github.com/nyoikepaul/enterprise-prosite/issues)
 
-## 🛠️ Key Features
-- **System Service:** Runs persistently as a Linux background process.
-- **Reverse Proxy:** Nginx architecture for professional traffic routing.
-- **JWT Auth:** Secure user sessions via JSON Web Tokens.
-- **Automated Backups:** Shell script for daily database snapshots.
+## 🚀 Features
+- Secure JWT authentication via PocketBase.
+- Nginx reverse proxy for production.
+- Ngrok tunneling for dev.
+- Automated backups/systemd service.
+- Frontend: HTML/JS with Tailwind upgrades.
+
+## 📂 Project Structure
+- `/pb_public`: Static PocketBase assets.
+- `launch.sh`: Startup script.
+- `index.html`: Main portal UI.
+- `Caddyfile`: Server config.
+
+## 🛠️ Setup & Run
+1. Clone: `git clone https://github.com/nyoikepaul/enterprise-prosite.git`
+2. Install PocketBase: Download from pocketbase.io.
+3. Run: `./pocketbase serve` + `./launch.sh`.
+4. Access: http://localhost:8090.
+
+## 📸 Screenshots
+(Add portal login/dashboard images)
+
+## 🤝 Contributing
+PRs welcome: [Issues](https://github.com/nyoikepaul/enterprise-prosite/issues).
+
+## 📫 About Me
+Paul Nyoike Kamau, Nairobi. Open for Upwork secure portal gigs.
+
+Contact: nyoikepaul2@gmail.com | X: [@paulNyoike2](https://x.com/paulNyoike2)
+
+MIT License.
